@@ -8,8 +8,9 @@ import { fauna } from '../../../services/fauna';
 export default NextAuth({
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      clientId: process.env.NEXTAUTH_URL_GITHUB_ID,
+      clientSecret: process.env.NEXTAUTH_URL_GITHUB_SECRET,
+      version: "2.0",
       authorization: {
         params: {
           scope: "read:user",
@@ -18,7 +19,7 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile, credentials }) {
+    async signIn({ user }) {
       const { email } = user;
 
       try {
